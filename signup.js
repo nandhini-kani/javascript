@@ -1,49 +1,48 @@
-window.addEventListener("DOMContentLoaded",()=>{
-const form=document.getElementById('form');
-const username=document.getElementById("username").value;
-const email=document.getElementById("email").value;
-const usernameError=document.getElementById("usernameError");
-const emailError=document.getElementById("emailError");
+const form = document.getElementById('form');
+const username = document.getElementById("username");
+const email = document.getElementById("email");
+const usernameError = document.getElementById("usernameError");
+const emailError = document.getElementById("emailError");
 
-let usernameValue=username.value;
-username.addEventListener("change",function(e)
-{
-    console.log("username changed to:"+e.targe.value);
-    usernameValue=e.target.value;
-})
+let usernameValue = "";
+let emailValue = "";
 
-let emailValue=email.value;
-email.addEventListener("change",function(e){
-    console.log("username changed to:"+e.targe.value);
-    emailValue=e.target.value;
-})
+// Track changes
+username.addEventListener("input", function(e) {
+    usernameValue = e.target.value;
+    console.log("Username changed to:", usernameValue);
+});
 
-})
-form.addEventListener("submit",function(e){
+email.addEventListener("input", function(e) {
+    emailValue = e.target.value;
+    console.log("Email changed to:", emailValue);
+});
+
+form.addEventListener("submit", function(e) {
     e.preventDefault();
-    console.log("form submitted");
-    console.log("username :"+usernameValue);
-    console.log("Email :"+emailValue);
-    if(!usernameValue.trim()){
-        usernameError.innerHTML+"please Enter your name";
-    }
-    else{
-        usernameError.innerHTML +"";
-    }
-    if(!emailValue){
-        emailError.innerHTML+"please Enter your email ";
-    }
-    else{
-        emailError.innerHTML+""
-    }
-    if(usernameError || emailError){
-        console.log("validation failed");
-        return null;
-    }
-    console.log("form submitted successfuly");
-})
+    
+    // Reset errors
+    usernameError.innerHTML = "";
+    emailError.innerHTML = "";
 
-console.log(username);
-console.log("username value",usernameValue);
-console.log(email);
-console.log("email value",emailValue);
+    let hasError = false;
+
+    if (!usernameValue.trim()) {
+        usernameError.innerHTML = "Please enter your name";
+        hasError = true;
+    }
+
+    if (!emailValue.trim()) {
+        emailError.innerHTML = "Please enter your email";
+        hasError = true;
+    }
+
+    if (hasError) {
+        console.log("Validation failed");
+        return;
+    }
+
+    console.log("Form submitted successfully");
+    console.log("Username:", usernameValue);
+    console.log("Email:", emailValue);
+});
